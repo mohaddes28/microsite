@@ -11,4 +11,5 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-/vendor
+/core/vendor
+/core/node_modules
