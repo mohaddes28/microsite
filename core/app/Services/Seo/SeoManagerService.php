@@ -13,51 +13,39 @@ class SeoManagerService
         $this->fileSystem = $fileOperationService;
     }
 
-    public function checkRecord()
+    public function checkRecord($key = 'global')
     {
         $globalSeo = GlobalSeo::query();
-        if ($globalSeo->count()) {
+        if ($globalSeo->where('key', $key)->count()) {
             return $globalSeo->first();
         }else{
             $data = [
-                'site_name'             => '',
-                'title'                 => '',
-                'description'           => '',
-                'keywords'              => '',
-                'og_title'              => '',
-                'og_description'        => '',
-                'og_site_name'          => '',
-                'og_updated_time'       => '',
-                'og_image'              => '',
-                'article_published_time' => '',
-                'article_modified_time' => '',
-                'twitter_card'          => '',
-                'twitter_title'         => '',
-                'twitter_description'   => '',
-                'twitter_image'         => '',
-                'favicon'               => ''
+                'key' => $key,
             ];
-            $globalSeo = GlobalSeo::create($data);
-            return $globalSeo;
+            return GlobalSeo::create($data);
         }
     }
 
-    public function update($validated, $id)
+    public function update($validated, $key)
     {
-        $seoData = GlobalSeo::query()->findOrFail($id);
+        $seoDataQuery = GlobalSeo::query()->where('key',$key);
+        $seoData = $seoDataQuery->first();
         if (!empty($validated['og_image'])) {
-            $this->fileSystem->delete($seoData->og_image);
+            $seoData->og_image ? $this->fileSystem->delete($seoData->og_image) : '';
             $validated['og_image'] = $this->fileSystem->upload($validated['og_image'], 'uploads/seo');
-
         }
         if (!empty($validated['twitter_image'])) {
-            $this->fileSystem->delete($seoData->twitter_image);
+            $seoData->twitter_image ? $this->fileSystem->delete($seoData->twitter_image) : '';
             $validated['twitter_image'] = $this->fileSystem->upload($validated['twitter_image'], 'uploads/seo');
         }
         if (!empty($validated['favicon'])) {
-            $this->fileSystem->delete($seoData->favicon);
+            $seoData->favicon ? $this->fileSystem->delete($seoData->favicon) : '';
             $validated['favicon'] = $this->fileSystem->upload($validated['favicon'], 'uploads/seo');
         }
-        $seoData->update($validated);
+        if (!empty($validated['site_logo'])) {
+            $seoData->site_logo ? $this->fileSystem->delete($seoData->site_logo) : '';
+            $validated['site_logo'] = $this->fileSystem->onlyUpload($validated['site_logo'], 'uploads/logo');
+        }
+        $seoDataQuery->update($validated);
     }
 }

@@ -1,41 +1,59 @@
 @extends('frontend.master')
-
-@section('title')
-    Disclaimers - YouTube Pro APK
+@section('style')
+    <link rel="stylesheet" href="{{ asset('css/dynamic.css') }}">
 @endsection
-
-@section('meta_keywords')
-
+@section('seo')
+    <title>{{ $metaSeo['title'] ?? ($globalSeo->title ?? '') }}</title>
+    <meta name ="keywords" content="{{ $metaSeo['keywords'] ?? ($globalSeo->keywords ?? '') }}" />
+    <meta name ="description" content="{{ $metaSeo['description'] ?? ($globalSeo->description ?? '') }}" />
+    <meta name="author" content="{{ $metaSeo['site_name'] ?? ($globalSeo->site_name ?? '') }}">
+    <meta name="url" content="{{ url('/') }}">
+    <link rel="canonical" href="{{ url('/') }}" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ $metaSeo['og_title'] ?? ($globalSeo->og_title ?? '') }}" />
+    <meta property="og:description" content="{{ $metaSeo['og_description'] ?? ($globalSeo->og_description ?? '') }}" />
+    <meta property="og:url" content="{{ url('/') }}" />
+    <meta property="og:site_name" content="{{ $metaSeo['og_site_name'] ?? ($globalSeo->og_site_name ?? '') }}" />
+    <meta property="og:updated_time" content="2023-08-27T19:00:37+05:30" />
+    <meta property="og:image" content="{{ asset( $metaSeo['og_image'] ?? ($globalSeo->og_image ?? '') ) }}" />
+    <meta property="article:published_time" content="2023-08-27T19:00:32+05:30" />
+    <meta property="article:modified_time" content="2023-08-27T19:00:37+05:30" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ $metaSeo['twitter_title'] ?? ($globalSeo->twitter_title ?? '') }}" />
+    <meta name="twitter:description" content="{{ $metaSeo['twitter_description'] ?? ($globalSeo->twitter_description ?? '') }}" />
+    <meta name="twitter:image" content="{{ asset( $metaSeo['twitter_image'] ?? ($globalSeo->twitter_image ?? '') ) }}" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="{{ $metaSeo['site_name'] ?? ($globalSeo->site_name ?? '') }}" />
+    <!-- Meta Data For Seo Starts -->
 @endsection
-
-@section('meta_description')
-
-@endsection
-
 @section('content')
-    <section id="home" class="section ptb_100">
+    <!-- ***** Breadcrumb Area Start ***** -->
+    <section class="section breadcrumb-area bg-gray d-flex align-items-center">
         <div class="container">
-            <h3 class="mb-4 mt-4">Disclaimer for YouTube Pro APK</h3>
-            <p class="mb-4 text-justify">If you require any more information or have any questions about our site's disclaimer, please feel free to contact us by email at
-                <a href="mailto:admin@youtubeproapk.com"><strong>admin@youtubeproapk.com.</strong></a> Our Disclaimer was generated with the help of the Free Disclaimer Gene
-            <h4 class="mb-4">Disclaimers for YouTube Pro APK</h4>
-            <p class="mb-3 text-justify">All the information on this website - <a target="_blank" href="https://youtubeproapk.com/"><strong>YouTubeProAPK</strong></a> - is published in good faith and for general information purpose only. YouTube Pro APK does not make any warranties about the completeness, reliability and accuracy of this information. Any action you take upon the information you find on this website (YouTube Pro APK), is strictly at your own risk. YouTube Pro APK will not be liable for any losses and/or damages in connection with the use of our website.
-            </p>
-            <p class="mb-3 text-justify">
-                From our website, you can visit other websites by following hyperlinks to such external sites. While we strive to provide only quality links to useful and ethical websites, we have no control over the content and nature of these sites. These links to other websites do not imply a recommendation for all the content found on these sites. Site owners and content may change without notice and may occur before we have the opportunity to remove a link which may have gone 'bad'.
-            </p>
-            <p class="mb-3 text-justify">
-                Please be also aware that when you leave our website, other sites may have different privacy policies and terms which are beyond our control. Please be sure to check the Privacy Policies of these sites as well as their "Terms of Service" before engaging in any business or uploading any information.
-            </p>
-            <h4 class="mb-4">Consent</h4>
-            <p class="mb-3 text-justify">
-                By using our website, you hereby consent to our disclaimer and agree to its terms.
-            </p>
-
-            <h4 class="mb-4">Update</h4>
-            <p class="mb-3 text-justify">
-                Should we update, amend or make any changes to this document, those changes will be prominently posted here.
-            </p>
+            <div class="row">
+                <div class="col-12">
+                    <!-- Breamcrumb Content -->
+                    <div class="breadcrumb-content text-center">
+                        <ol class="breadcrumb d-flex justify-content-center">
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                            <li class="breadcrumb-item active">Disclaimer</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Breadcrumb Area End ***** -->
+    <section id="home" class="section pt-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="p-2">
+                        {!! $data->page_content ?? '<h1>No content ! Please Add.</h1>' !!}
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 @endsection

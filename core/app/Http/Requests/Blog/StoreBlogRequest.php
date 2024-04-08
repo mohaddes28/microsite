@@ -28,6 +28,7 @@ class StoreBlogRequest extends FormRequest
             'category_id' => 'required',
             'photo_file' => 'mimes:jpeg,png,jpg,gif',
             'description' => 'required',
+            'meta_title' => '',
             'meta_keyword' => '',
             'meta_description' => '',
         ];

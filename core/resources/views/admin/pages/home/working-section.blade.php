@@ -51,6 +51,15 @@
                                                     @endif
                                                 </div>
 
+                                                <div class="col-md-12 mb-2">
+                                                    <label for="more_content">More Content <span class="text-danger">*</span></label>
+                                                    <textarea type="text" name="more_content" id="more_content"
+                                                              class="form-control-sm form-control ckEditor" required >{!!  $section->more_content ?? '<h1 style="text-align:center">Write A Description</h1>' !!}</textarea>
+                                                    @if ($errors->has('more_content'))
+                                                        <small class="text-danger">{{ $errors->first('more_content') }}</small>
+                                                    @endif
+                                                </div>
+
                                                 <div class="col-12 text-end mb-2">
                                                     <button class="btn btn-sm btn-primary"><i class='bx bx-save'></i>Save Changes</button>
                                                 </div>

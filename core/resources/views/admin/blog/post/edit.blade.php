@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-12 mt-2">
                                     <label for="description">Description <span class="text-danger">*</span></label>
-                                    <textarea name="description" id="description" class="form-control-sm form-control"
+                                    <textarea name="description" id="description" class="ckEditor form-control-sm form-control"
                                               required>{{ $post->description  }}</textarea>
                                     @if ($errors->has('description'))
                                         <small class="text-danger">{{ $errors->first('description') }}</small>

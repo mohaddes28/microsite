@@ -29,7 +29,7 @@ class ScreenShotController extends Controller
     {
         $recordPerPage = 20;
         $screenshots = ScreenShot::query()->paginate($recordPerPage);
-        return view('admin.screenshot.index', compact('screenshots'))->with('i', ((request()->input('page', '1') - 1) * $recordPerPage)+1);;
+        return view('admin.screenshot.index', compact('screenshots'))->with('i', ((request()->input('page', '1') - 1) * $recordPerPage)+1);
     }
 
     /**

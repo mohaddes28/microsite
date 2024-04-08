@@ -12,7 +12,6 @@ const mix = require('laravel-mix');
  */
 
 mix.styles([
-    '../frontend/assets/css/vendor/animate.min.css',
     '../frontend/assets/css/vendor/aos.css',
     '../frontend/assets/css/vendor/bootstrap.min.css',
     '../frontend/assets/css/vendor/jquery.fancybox.min.css',
@@ -21,7 +20,6 @@ mix.styles([
     '../frontend/assets/css/style.css',
     '../frontend/assets/css/style.css',
     '../frontend/assets/css/custom-style.css',
-    '../frontend/assets/css/all.min.css',
 ], '../css/style.css')
 .babel([
     '../frontend/assets/js/jquery/jquery.min.js',

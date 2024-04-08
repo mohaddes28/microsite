@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('feature_image');
             $table->longText('description')->nullable();
             $table->string('meta_keyword')->nullable();
+            $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('blog_categories')->onDelete('cascade')->onUpdate('no action');

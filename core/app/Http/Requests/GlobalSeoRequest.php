@@ -24,22 +24,24 @@ class GlobalSeoRequest extends FormRequest
     public function rules()
     {
         return [
-            'site_name'             => 'required',
-            'title'                 => 'required',
-            'description'           => 'required',
-            'keywords'              => 'required',
-            'og_title'              => 'required',
-            'og_description'        => 'required',
-            'og_site_name'          => 'required',
-            'og_updated_time'       => 'required',
-            'og_image'              => 'mimes:jpg,png',
-            'article_published_time' => 'required',
-            'article_modified_time' => 'required',
-            'twitter_card'          => 'required',
-            'twitter_title'         => 'required',
-            'twitter_description'   => 'required',
-            'twitter_image'         => 'mimes:jpg,png',
-            'favicon'               => 'mimes:png'
+            'site_name'                 => '',
+            'email'                     => '',
+            'title'                     => '',
+            'description'               => '',
+            'keywords'                  => '',
+            'og_title'                  => '',
+            'og_description'            => '',
+            'og_site_name'              => '',
+            'og_updated_time'           => '',
+            'og_image'                  => 'mimes:jpg,jpeg,png',
+            'article_published_time'    => '',
+            'article_modified_time'     => '',
+            'twitter_card'              => '',
+            'twitter_title'             => '',
+            'twitter_description'       => '',
+            'twitter_image'             => 'mimes:jpg,jpeg,png',
+            'favicon'                   => 'mimes:png',
+            'site_logo'                 => 'mimes:png'
         ];
     }
 }

@@ -52,7 +52,7 @@
                                                 </div>
 
                                                 <div class="col-md-12 mb-2">
-                                                    <label for="more_content">More Content <span class="text-danger">*</span></label>
+                                                    <label for="more_content">Download Instruction<span class="text-danger">*</span></label>
                                                     <textarea type="text" name="more_content" id="more_content"
                                                               class="form-control-sm form-control ckEditor" required >{!!  $section->more_content ?? '<h1 style="text-align:center">Add More Content</h1>' !!}</textarea>
                                                     @if ($errors->has('more_content'))

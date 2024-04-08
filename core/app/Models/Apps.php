@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Apps extends Model
 {
     use HasFactory;
-    protected $fillable = ['version','file_size','file','latest'];
+    protected $fillable = ['version','file_size','file','latest', 'sequence'];
 }

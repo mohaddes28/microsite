@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Dhaka',
 
     /*
     |--------------------------------------------------------------------------
@@ -178,7 +178,7 @@ return [
         /*
          * Custom Service Providers...
          */
-        App\Providers\GlobalSeoProvider::class,
+        App\Providers\GlobalSeoServiceProvider::class,
 
     ],
 
@@ -234,7 +234,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'MyHelper' => \App\Helpers\MyHelper::class
 
     ],
 

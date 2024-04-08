@@ -52,9 +52,18 @@
                                                 </div>
 
                                                 <div class="col-md-12 mb-2">
-                                                    <label for="video_link">Video Link <span class="text-danger">*</span></label>
+                                                    <label for="more_content">More Content <span class="text-danger">*</span></label>
+                                                    <textarea type="text" name="more_content" id="more_content"
+                                                              class="form-control-sm form-control ckEditor" required >{!!  $section->more_content ?? '<h1 style="text-align:center">Write A Description</h1>' !!}</textarea>
+                                                    @if ($errors->has('more_content'))
+                                                        <small class="text-danger">{{ $errors->first('more_content') }}</small>
+                                                    @endif
+                                                </div>
+
+                                                <div class="col-md-12 mb-2">
+                                                    <label for="video_link">Video Link</label>
                                                     <input type="text" name="video_link" value="{{ $section->video_link ?? '' }}" id="video_link"
-                                                           class="form-control-sm form-control" required />
+                                                           class="form-control-sm form-control" />
                                                     @if ($errors->has('video_link'))
                                                         <small class="text-danger">{{ $errors->first('video_link') }}</small>
                                                     @endif
@@ -67,9 +76,9 @@
                                                 </div>
 
                                                 <div class="col-md-12 mb-2">
-                                                    <label for="image">Video Link <span class="text-danger">*</span></label>
+                                                    <label for="image">Video Link</label>
                                                     <input type="file" name="image" id="image"
-                                                           class="form-control-sm form-control" required />
+                                                           class="form-control-sm form-control" />
                                                     @if ($errors->has('image'))
                                                         <small class="text-danger">{{ $errors->first('image') }}</small>
                                                     @endif

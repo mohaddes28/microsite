@@ -1,12 +1,34 @@
 @extends('frontend.master')
-
-@section('title')
-    {{ $post->title }}
+@section('style')
+    <link rel="stylesheet" href="{{ asset('css/dynamic.css') }}">
+@endsection
+@section('seo')
+    <title>{{$globalSeo->site_name ?? ''}} | {{ $post->meta_title ?? $post->title }}</title>
+    <meta property="og:title" content="{{ $post->meta_title ?? $post->title }}" />
+    <meta name="twitter:title" content="{{ $post->meta_title ?? $post->title }}" />
+    <meta name ="description" content="{{ $post->description }}" />
+    <meta property="og:description" content="{{ $post->description }}" />
+    <meta name="twitter:description" content="{{ $post->description }}" />
+    <meta property="og:image" content="{{ asset( $post->feature_image ) }}" />
+    <meta name="twitter:image" content="{{ asset( $post->feature_image ) }}" />
+    <meta name ="keywords" content="{{ $post->meta_keyword }}" />
+    <meta name="author" content="{{ $metaSeo['site_name'] ?? ($globalSeo->site_name ?? '') }}">
+    <meta name="url" content="{{ url('/') }}">
+    <link rel="canonical" href="{{ url('/') }}" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ url('/') }}" />
+    <meta property="og:site_name" content="{{ $metaSeo['og_site_name'] ?? ($globalSeo->og_site_name ?? '') }}" />
+    <meta property="og:updated_time" content="{{ \Carbon\Carbon::parse($post->updated_at)->format('Y-m-d H:i:s e') }}+05:30" />
+    <meta property="article:published_time" content="{{ \Carbon\Carbon::parse($post->created_at)->format('Y-m-d H:i:s e') }}+05:30" />
+    <meta property="article:modified_time" content="{{ \Carbon\Carbon::parse($post->created_at)->format('Y-m-d H:i:s e') }}+05:30" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:label1" content="Written by Admin" />
+    <meta name="twitter:data1" content="{{ $metaSeo['site_name'] ?? ($globalSeo->site_name ?? '') }}" />
+    <!-- Meta Data For Seo Starts -->
 @endsection
 
 @section('content')
-
-
 
     <!-- ***** Breadcrumb Area Start ***** -->
     <section class="section breadcrumb-area bg-gray d-flex align-items-center">
@@ -28,15 +50,15 @@
     <!-- ***** Breadcrumb Area End ***** -->
 
     <!-- ***** Blog Area Start ***** -->
-    <section id="blog" class="section blog-area ptb_50">
-        <div class="container">
+    <section id="blog" class="section blog-area ptb_50 px-5">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-12 col-lg-9">
+                <div class="col-12 col-md-9">
                     <!-- Single Blog Details -->
                     <article class="single-blog-details">
                         <!-- Blog Thumb -->
                         <div class="blog-thumb">
-                            <a href="#"><img src="{{ asset($post->feature_image) }}" alt=""></a>
+                            <a href="#"><img class="w-100" src="{{ asset($post->feature_image) }}" alt="{{ $post->title }}"></a>
                         </div>
                         <!-- Blog Content -->
                         <div class="blog-content sApp-blog">
@@ -50,15 +72,15 @@
                                 <div class="blog-share ml-auto d-none d-sm-block">
                                     <!-- Social Icons -->
                                     <div class="social-icons d-flex justify-content-center">
-                                        <a class="bg-white facebook" href="#">
+                                        <a style="color: #fffFFF !important;" class="bg-white facebook" href="#">
                                             <i class="fab fa-facebook-f"></i>
                                             <i class="fab fa-facebook-f"></i>
                                         </a>
-                                        <a class="bg-white twitter" href="#">
+                                        <a style="color: #fffFFF !important;" class="bg-white twitter" href="#">
                                             <i class="fab fa-twitter"></i>
                                             <i class="fab fa-twitter"></i>
                                         </a>
-                                        <a class="bg-white google-plus" href="#">
+                                        <a style="color: #fffFFF !important;" class="bg-white google-plus" href="#">
                                             <i class="fab fa-google-plus-g"></i>
                                             <i class="fab fa-google-plus-g"></i>
                                         </a>
@@ -137,7 +159,7 @@
                         </div>
                     </article>
                 </div>
-                <div class="col-12 col-lg-3">
+                <div class="col-12 col-md-3">
                     <aside class="sidebar pt-5 pt-lg-0">
                         <!-- Single Widget -->
                         <div class="single-widget">

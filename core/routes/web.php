@@ -21,6 +21,7 @@ Auth::routes();
 Route::get('/register', function(){
     return redirect()->route('home');
 });
+Route::get('dynamic-css', '\App\Http\Controllers\DynamicCssController@index')->name('dynamic-css');
 Route::controller(HomeController::class)->group(function (){
     Route::get('/', 'index')->name('home');
     Route::get('/disclaimer', 'disclaimer')->name('front.disclaimer');

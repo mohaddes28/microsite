@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Blog\StoreBlogRequest;
+use App\Models\Blog\BlogPost;
 use App\Services\Blog\BlogCategoriesService;
 use App\Services\Blog\BlogPostsService;
 use App\Services\Utility\FileOperationService;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
 
 class BlogPostsController extends Controller
 {
@@ -88,6 +90,14 @@ class BlogPostsController extends Controller
             $validated['feature_image'] = $photo;
             $indexResponse = $this->blogsService->store($validated);
             DB::commit();
+            $sitemap = Sitemap::create();
+            BlogPost::all()->each(function(BlogPost $post) use ($sitemap){
+                $sitemap->add(Url::create('/blog/'.$post->slug)
+                    ->setLastModificationDate(Carbon::yesterday())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
+                    ->setPriority(0.8));
+            });
+            $sitemap->writeToFile('sitemap/posts.xml');
             return redirect()->route('admin/blog/post/index')->with('success_msg', 'Blog has been added successfully');
         } catch(\Exception $e){
             DB::rollBack();
@@ -161,6 +171,15 @@ class BlogPostsController extends Controller
                 return view('templates.404');
             $this->fileOperationService->delete($blog->feature_image);
             $this->blogsService->delete($id);
+
+            $sitemap = Sitemap::create();
+            BlogPost::all()->each(function(BlogPost $post) use ($sitemap){
+                $sitemap->add(Url::create('/blog/'.$post->slug)
+                    ->setLastModificationDate(Carbon::yesterday())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
+                    ->setPriority(0.8));
+            });
+            $sitemap->writeToFile('sitemap/posts.xml');
             DB::commit();
             return redirect()->route('admin/blog/post/index')->with('success', 'Blog has been deleted successfully');
         } catch(\Exception $e){

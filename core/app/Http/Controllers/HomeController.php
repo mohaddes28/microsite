@@ -8,23 +8,27 @@ use App\Models\Faq;
 use App\Models\Feature;
 use App\Models\HomePage;
 use App\Models\NameGeneratorName;
+use App\Models\Page;
 use App\Models\ScreenShot;
 use App\Services\Blog\BlogPostsService;
+use App\Services\Seo\SeoManagerService;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     private $blogPostsService;
+    protected $seoManager;
 
-    public function __construct(BlogPostsService $blogPostsService)
+    public function __construct(BlogPostsService $blogPostsService, SeoManagerService $seoManagerService)
     {
         $this->blogPostsService = $blogPostsService;
+        $this->seoManager = $seoManagerService;
     }
 
     public function index(HomePage $homePage)
     {
         $screenshots = ScreenShot::all();
-        $features = Feature::all();
+        $features = Feature::query()->orderBy('id', 'asc')->get();
         $faqs = Faq::all();
         $apps = Apps::query()->latest('id');
         $latestBlogs = BlogPost::query()->latest('id')->limit(3)->get();
@@ -42,18 +46,21 @@ class HomeController extends Controller
 
     public function disclaimer()
     {
-        return view('frontend.pages.disclaimer');
+        $data = Page::query()->where('slug','disclaimer')->first();
+        $metaSeo = $this->seoManager->checkRecord('disclaimer');
+        return view('frontend.pages.disclaimer', compact('data', 'metaSeo'));
     }
 
     public function termsConditions()
     {
-        return view('frontend.pages.terms-and-conditions');
+        $data = Page::query()->where('slug','terms-conditions')->first();
+        $metaSeo = $this->seoManager->checkRecord('terms-conditions');
+        return view('frontend.pages.terms-and-conditions', compact('data', 'metaSeo'));
     }
 
     public function privacyPolicy()
-    {
-        $metaSeo['title'] = 'no title';
-//        $metaSeo['description'] = 'this is description';
-        return view('frontend.pages.privacy-policy', compact('metaSeo'));
+    {$data = Page::query()->where('slug','privacy-policy')->first();
+        $metaSeo = $this->seoManager->checkRecord('privacy-policy');
+        return view('frontend.pages.privacy-policy',  compact('data', 'metaSeo'));
     }
 }

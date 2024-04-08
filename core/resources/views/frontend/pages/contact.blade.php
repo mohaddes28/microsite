@@ -47,7 +47,7 @@
                             <br>
                             Simply send us a message and we'll respond promptly.
                             <br>
-                            OR Email us directly at <a class="text-primary" href="mailto:contact@youtubeproapk.com">contact@youtubeproapk.com</a>
+                            OR Email us directly at <a class="text-primary" href="mailto:{{ $globalSeo->email ?? 'Set Your Site email' }}">{{ $globalSeo->email ?? 'Set Your Site email' }}</a>
                         </p>
                     </div>
                 </div>

@@ -54,7 +54,7 @@
                                     @endif
                                 </div>
                                 <div class="col-md-12 mt-2">
-                                    <label for="latest">Version <span class="text-danger">*</span></label>
+                                    <label for="latest">Latest <span class="text-danger">*</span></label>
                                     <input type="text" name="latest" value="{{ $app->latest }}" id="latest"
                                            class="form-control-sm form-control" required/>
                                     @if ($errors->has('latest'))

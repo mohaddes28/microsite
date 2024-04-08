@@ -27,6 +27,11 @@ class SiteMapController extends Controller
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
                     ->setPriority(0.9))
 
+                ->add(Url::create('/about-us')
+                    ->setLastModificationDate(Carbon::yesterday())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                    ->setPriority(0.8))
+
                 ->add(Url::create('/contact')
                     ->setLastModificationDate(Carbon::yesterday())
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
@@ -53,8 +58,8 @@ class SiteMapController extends Controller
             BlogPost::all()->each(function(BlogPost $post) use ($sitemap){
                 $sitemap->add(Url::create('/blog/'.$post->slug)
                     ->setLastModificationDate(Carbon::yesterday())
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
-                    ->setPriority(0.8));
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+                    ->setPriority(0.6));
             });
             $sitemap->writeToFile('sitemap/posts.xml');
 

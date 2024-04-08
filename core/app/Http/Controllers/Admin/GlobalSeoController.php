@@ -91,12 +91,12 @@ class GlobalSeoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(GlobalSeoRequest $request, $id): RedirectResponse
+    public function update(GlobalSeoRequest $request, $key): RedirectResponse
     {
         DB::beginTransaction();
         try {
             $validated = $request->validated();
-            $this->seoManager->update($validated, $id);
+            $this->seoManager->update($validated, $key);
             DB::commit();
             return redirect()->back()->with('success', 'Operation completed!');
         }catch (Exception $exception){

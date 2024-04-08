@@ -67,6 +67,14 @@
                                     @endif
                                 </div>
                                 <div class="col-md-12 mt-2">
+                                    <label for="meta_title">Meta Title</label>
+                                    <input type="text" name="meta_title" value="{{ old('meta_title') }}"
+                                           id="meta_title" class="form-control-sm form-control"/>
+                                    @if ($errors->has('meta_title'))
+                                        <small class="text-danger">{{ $errors->first('meta_title') }}</small>
+                                    @endif
+                                </div>
+                                <div class="col-md-12 mt-2">
                                     <label for="meta_keyword">Meta Keyword</label>
                                     <input type="text" name="meta_keyword" value="{{ old('meta_keyword') }}"
                                            id="meta_keyword" class="form-control-sm form-control"/>

@@ -26,7 +26,6 @@ use App\Http\Controllers\Admin\GlobalSeoController;
 
 Route::group(['prefix'=>'admin', 'middleware'=>['auth']],function (){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin/dashboard');
-
     Route::group(['as' => 'admin.'], function(){
         // Feature
         Route::resource('feature', FeatureController::class);
@@ -34,10 +33,13 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth']],function (){
         Route::resource('screenshot', ScreenShotController::class);
         // faq
         Route::resource('faq', FaqController::class);
+        // media
+        Route::resource('media', \App\Http\Controllers\Admin\MediaController::class);
         // apps
         Route::resource('apps', AppsController::class);
 
         Route::resource('seo', GlobalSeoController::class);
+
         Route::prefix('page')->name('page.')->group(function(){
             Route::controller(\App\Http\Controllers\Admin\HomePageController::class)->prefix('home')->name('home.')->group(function() {
                 Route::get('/', 'index')->name('index');
@@ -51,40 +53,46 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth']],function (){
 
                 Route::put('/main-section/{sectionName}', 'homePageUpdate')->name('section.update');
             });
-
             Route::controller(\App\Http\Controllers\Admin\DownloadPageController::class)->prefix('download')->name('download.')->group(function (){
                 Route::get('/', 'index')->name('index');
                 Route::get('/main', 'main')->name('main');
                 Route::get('/installation', 'installation')->name('installation');
                 Route::get('/additional-content', 'additionalContent')->name('additional-content');
+                Route::get('/seo', 'seo')->name('seo');
 
                 Route::put('/update/{sectionName}', 'update')->name('update');
             });
         });
-
         Route::controller(\App\Http\Controllers\Admin\PageController::class)->prefix('page')->name('page.')->group(function() {
-            Route::get('/about-us', 'aboutUs')->name('about-us');
+            Route::get('/about-us', 'aboutUsMainSection')->name('about-us');
+            Route::get('/about-us/main-section', 'aboutUsMainSection')->name('about-us.main-section');
+            Route::get('/about-us/seo', 'aboutUsSeo')->name('about-us.seo');
+
             Route::get('/disclaimer', 'disclaimer')->name('disclaimer');
+            Route::get('/disclaimer/seo', 'disclaimerSeo')->name('disclaimer.seo');
+
             Route::get('/privacy-policy', 'privacyPolicy')->name('privacy-policy');
+            Route::get('/privacy-policy/seo', 'privacyPolicySeo')->name('privacy-policy.seo');
+
             Route::get('/terms-conditions', 'termsConditions')->name('terms-conditions');
+            Route::get('/terms-conditions/seo', 'termsConditionsSeo')->name('terms-conditions.seo');
 
-            Route::post('/about-us', 'aboutUsStore')->name('about-us');
-            Route::post('/disclaimer', 'disclaimerStore')->name('disclaimer');
-            Route::post('/privacy-policy', 'privacyPolicyStore')->name('privacy-policy');
-            Route::post('/terms-conditions', 'termsConditionsStore')->name('terms-conditions');
+            Route::put('/update/{slug}', 'update')->name('seo.update');
 
-            Route::put('/about-us', 'aboutUsUpdate')->name('about-us');
-            Route::put('/disclaimer', 'disclaimerUpdate')->name('disclaimer');
-            Route::put('/privacy-policy', 'privacyPolicyUpdate')->name('privacy-policy');
-            Route::put('/terms-conditions', 'termsConditionsUpdate')->name('terms-conditions');
         });
-
         Route::controller(\App\Http\Controllers\SiteMapController::class)->prefix('sitemap')->name('sitemap.')->group(function (){
             Route::get('/update', 'index')->name('update');
         });
-
         Route::controller(ContactMessageController::class)->prefix('contact-message')->name('contact-message.')->group(function (){
             Route::get('/', 'index')->name('index');
+        });
+        Route::controller(\App\Http\Controllers\Admin\ExecuteCommandController::class)->group(function(){
+            Route::get('/execute-command', 'index')->name('execute');
+            Route::post('/execute-command', 'execute')->name('execute');
+        });
+        Route::controller(\App\Http\Controllers\Admin\ThemeStyleController::class)->name('theme.')->group(function(){
+            Route::get('/theme', 'index')->name('index');
+            Route::post('/theme/update', 'update')->name('update');
         });
     });
 

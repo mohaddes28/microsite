@@ -17,6 +17,10 @@ class FileOperationService
     public function upload($file, $folder): string
     {
         $file_name = $file->getClientOriginalName();
+        if (file_exists($folder.'/'.$file_name.Str::random(10).'.webp')) {
+            $original = new \RuntimeException('A file already exist with this name, Please rename this file!');
+            throw $original;
+        }
         $image = Image::make($file)->encode('webp', 60)->save($folder.'/'.$file_name.'.webp');
         return $image->dirname . '/' . $image->basename;
     }
@@ -29,8 +33,12 @@ class FileOperationService
 
     public function onlyUpload($file, $folder): string
     {
-        $file_name = $file->getClientOriginalName() . $file->getClientOriginalExtension();
+        $file_name = $file->getClientOriginalName();
         $file_path = $folder . '/' . $file_name;
+        if (file_exists($file_path)) {
+            $original = new \RuntimeException('A file already exist with this name, Please rename this file!');
+            throw $original;
+        }
         $image = $file->move($folder, $file_name);
         return $file_path;
     }

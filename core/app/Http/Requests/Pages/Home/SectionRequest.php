@@ -27,7 +27,7 @@ class SectionRequest extends FormRequest
             'title' => 'required',
             'description' => '',
             'button_text' => '',
-            'image' => '',
+            'image' => 'mimes:jpeg,png,jpg,webp',
             'more_content' => '',
             'more_button' => '',
             'video_link' => '',

@@ -107,7 +107,7 @@ class BlogPostsService
     {
         return $this->generateQuery()
             ->select('blog_posts.id', 'blog_posts.title', 'blog_posts.description', 'blog_posts.slug', 'blog_posts.category_id', 'blog_categories.category_name',
-                'blog_posts.feature_image', 'blog_posts.meta_keyword', 'blog_posts.meta_description', 'blog_posts.created_at')
+                'blog_posts.feature_image', 'blog_posts.meta_keyword', 'blog_posts.meta_description', 'blog_posts.created_at', 'blog_posts.updated_at')
             ->where('blog_posts.slug', $slug)->first();
     }
 

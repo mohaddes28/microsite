@@ -87,6 +87,13 @@
                         <div data-i18n="Analytics">Dashboard</div>
                     </a>
                 </li>
+                <!-- Dashboard -->
+                <li class="menu-item">
+                    <a href="{{ route('admin.media.index') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bxs-folder-open"></i>
+                        <div data-i18n="Analytics">Media</div>
+                    </a>
+                </li>
 
                 <li class="menu-item">
                     <a href="{{ route('admin.feature.index') }}" class="menu-link">
@@ -118,14 +125,22 @@
 
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-search-alt"></i>
-                        <div data-i18n="Analytics">Site Seo</div>
+                        <i class="menu-icon tf-icons bx bx-globe"></i>
+                        <div data-i18n="Analytics">Site</div>
                     </a>
 
                     <ul class="menu-sub">
                         <li class="menu-item">
                             <a href="{{ route('admin.seo.index') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-search-alt"></i>
                                 <div data-i18n="Without menu">Global Seo</div>
+                            </a>
+                        </li>
+
+                        <li class="menu-item">
+                            <a href="{{ route('admin.theme.index') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bxs-palette"></i>
+                                <div data-i18n="Without menu">Theme</div>
                             </a>
                         </li>
                         <li class="menu-item">
@@ -182,22 +197,22 @@
                         </li>
 
                         <li class="menu-item">
-                            <a href="{{ route('admin/blog/post/index') }}" class="menu-link">
+                            <a href="{{ route('admin.page.about-us.main-section') }}" class="menu-link">
                                 <div data-i18n="Without menu">About Us</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="{{ route('admin/blog/comments/index') }}" class="menu-link">
+                            <a href="{{ route('admin.page.disclaimer') }}" class="menu-link">
                                 <div data-i18n="Without menu">Disclaimer</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="{{ route('admin/blog/category/index') }}" class="menu-link">
+                            <a href="{{ route('admin.page.privacy-policy') }}" class="menu-link">
                                 <div data-i18n="Without navbar">Privacy Policy</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="{{ route('admin/blog/category/index') }}" class="menu-link">
+                            <a href="{{ route('admin.page.terms-conditions') }}" class="menu-link">
                                 <div data-i18n="Without navbar">Terms & Conditions</div>
                             </a>
                         </li>
@@ -212,10 +227,27 @@
                 </li>
 
                 <li class="menu-item">
-                    <a href="{{ route('admin.sitemap.update') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-sitemap"></i>
-                        <div data-i18n="Analytics">Update SiteMap</div>
+                    <a href="javascript:void(0);" class="menu-link  menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-slider-alt"></i>
+                        <div data-i18n="Analytics">For Developer</div>
                     </a>
+                    <ul class="menu-sub">
+
+                        <li class="menu-item">
+                            <a href="{{ route('admin.sitemap.update') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-sitemap"></i>
+                                <div data-i18n="Analytics">Update SiteMap</div>
+                            </a>
+                        </li>
+                        @if(auth()->user()->user_name == 'developer')
+                            <li class="menu-item">
+                                <a href="{{ route('admin.execute') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-code-block"></i>
+                                    <div data-i18n="Analytics">Run Commands</div>
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
                 </li>
 
             </ul>
@@ -310,7 +342,6 @@
             <!-- Content wrapper -->
             <div class="content-wrapper">
                 <!-- Content -->
-
                 @yield('body')
                 <!-- / Content -->
 
@@ -364,8 +395,10 @@
 
     $(".select2").select2();
 
-    let currentUrl = new URL(window.location);
-    $('a[href="' + currentUrl.href + '"]').parent().addClass('active');
+    const currentUrl = new URL(window.location);
+    const currentNavItem = $('a[href="' + currentUrl.href + '"]');
+    currentNavItem.parent().addClass('active');
+    currentNavItem.parents('.menu-item').addClass('open active');
     //$('a[href="' + currentUrl + '"]').parent().parent().parent().addClass('open active');
 
     function showErrorMessage(errMsg) {

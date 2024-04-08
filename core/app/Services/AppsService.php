@@ -22,6 +22,7 @@ class AppsService
     {
         $file = $this->fileService->onlyUpload($validated['file'], 'uploads/apps');
         $validated['file'] = $file;
+        $validated['sequence'] = (int) $validated['version'];
         Apps::create($validated);
     }
 
@@ -35,6 +36,8 @@ class AppsService
             $icon = $file->file;
         }
         $validated['file'] = $icon;
+        if(!empty($validated['version']))
+            $validated['sequence'] = (int) $validated['version'];
         $feature = Apps::find($id)->update($validated);
     }
 

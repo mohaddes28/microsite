@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="col-12 mt-2">
                                     <label for="answer">Answer <span class="text-danger">*</span></label>
-                                    <textarea name="answer" id="answer" class="form-control-sm form-control"
+                                    <textarea name="answer" id="answer" class="ckEditor form-control-sm form-control"
                                               required>{{ old('answer') }}</textarea>
                                     @if ($errors->has('answer'))
                                         <small class="text-danger">{{ $errors->first('answer') }}</small>
@@ -54,14 +54,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('script')
-    <script>
-        $(document).ready(function () {
-            $('#answer').summernote({
-                height: 150
-            });
-        });
-    </script>
 @endsection
